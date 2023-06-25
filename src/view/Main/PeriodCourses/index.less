@@ -1,0 +1,55 @@
+.center {
+  width: 1150px;
+  height: 102px;
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .left {
+    height: 54px;
+
+    .ant-tabs .ant-tabs-tab {
+      font-size: 16px;
+      font-weight: 500;
+      height: 54px;
+    }
+
+    .ant-tabs .ant-tabs-tab+.ant-tabs-tab {
+      margin: 0 0 0 30px;
+    }
+  }
+
+  .right {
+    width: 345px;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+
+    .button {
+      width: 98px;
+      height: 32px;
+      margin-left: 12px;
+      line-height:12px;
+      padding: 10px 20px;
+      background: #fff;
+      border-radius: 4px;
+      border: 1px solid #dadce0;
+    }
+
+    .button:hover{
+      background-color: rgb(236,243,254);
+      color:rgb(66,133,244);
+      cursor: pointer;
+    }
+
+    .ant-input {
+      text-overflow: ellipsis;
+      height: 32px;
+    }
+
+    .ant-input-group {
+      width: 212px;
+    }
+  }
+}

@@ -1,0 +1,49 @@
+.content {
+    width: 1150px;
+    max-height: 402px;
+    border: 1px solid #dadce0;
+    padding: 18px 16px 18px 18px;
+
+    .top {
+        width: 1114px;
+        height: 36px;
+        display: flex;
+        padding: 0 10px;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .title {
+            font-size: 20px;
+            font-family: PingFangSC, PingFangSC-Medium;
+            color: #575a5b;
+            font-weight: 500;
+        }
+
+        .operate {
+            text-align: center;
+
+            button {
+                text-align: center;
+                width: 150px;
+                height: 35px;
+            }
+        }
+    }
+
+    .courses {
+        display: flex;
+        flex-wrap: wrap;
+        max-height: 320px;
+        overflow: auto;
+    }
+
+    .courses::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .courses::-webkit-scrollbar-thumb {
+        background-color: #d9d9d9; 
+    }
+
+}
