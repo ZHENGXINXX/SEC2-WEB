@@ -9,7 +9,11 @@ export default function TeacherWork({ task = {} }) {
   const navigate = useNavigate();
 
   const toHomeWork = () => {
-    navigate('/homework');
+    navigate('/homework',{state:{index:'detail'}});
+  };
+
+  const toMaking = () =>{
+    navigate('/homework',{state:{index:'making'}});
   };
 
   const items = [
@@ -55,7 +59,7 @@ export default function TeacherWork({ task = {} }) {
         <div className={css.operate}>
           <div className={css.left1}>
             {task.state === 1 ?
-              <div className={css.data}>
+              <div className={css.data} onClick={toMaking}>
                 <Detail name='已批完' value='0' />
                 <Detail name='未批完' value='0' />
                 <Detail name='已交' value='0' />

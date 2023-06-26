@@ -41,8 +41,8 @@ export const pigeTeacher = (data) =>{
  * @param {*} data 
  * @returns 
  */
-export const studentDelete = (id) =>{
-  return baseReq.connection('delete',`/studentCourse/delete/${id}`);
+export const studentDelete = (data) =>{
+  return baseReq.connection('post',`/studentCourse/delete/`,data);
 };
 
 /**

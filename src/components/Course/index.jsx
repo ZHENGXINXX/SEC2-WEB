@@ -2,8 +2,7 @@ import { Card, Dropdown, Modal, message } from 'antd';
 import React from 'react';
 import css from './index.module.less';
 import { useNavigate } from 'react-router-dom';
-import { UnorderedListOutlined } from '@ant-design/icons';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, WarningOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import State from '@/tools/state';
 import { changeStudent, changeTeacher, pigeStudet, pigeTeacher, studentDelete, teacherDelete } from './api';
 
@@ -47,8 +46,9 @@ export default function Course({ detail }) {
   const onDel = () => {
     Modal.confirm({
       title: '提示?',
-      icon: <ExclamationCircleOutlined />,
-      content: '确定要删除课程吗，删除后该课程所有信息都将消失',
+      icon: <WarningOutlined style={{color:'red'}}/>,
+      width:600,
+      content: <div style={{padding:'30px 0',fontSize:20}}>确定要删除课程吗，删除后该课程所有信息都将消失</div>,
       okText: '删除',
       cancelText: '取消',
       onOk: del
@@ -57,9 +57,13 @@ export default function Course({ detail }) {
 
   const del = async () => {
     let res;
-    if(State.isStudent){
-      res = await studentDelete(detail.courseId);
-    }else{
+    if (State.isStudent) {
+      const values = {
+        courseId:detail.courseId,
+        studentId:State.userInfo.id
+      };
+      res = await studentDelete(values);
+    } else {
       res = await teacherDelete(detail.courseId);
     }
     if (res[0]) {

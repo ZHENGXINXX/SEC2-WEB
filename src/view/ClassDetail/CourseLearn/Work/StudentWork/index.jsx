@@ -6,9 +6,12 @@ export default function StudentWork({ task }) {
   const navigate = useNavigate();
 
   const toHomeWork = () => {
-    navigate('/homework');
+    navigate('/homework',{state:{index:'detail'}});
   };
 
+  const toSubmit = () =>{
+    navigate('/homework',{state:{index:'submit'}});
+  };
 
   return (
     <div className={css.work}>
@@ -19,7 +22,7 @@ export default function StudentWork({ task }) {
       <div className={css.right}>
         {task &&
           <div className={css.detail}>
-            <div className={css.name} onClick={toHomeWork}>{task.title}</div>
+            <div className={css.name} onClick={toHomeWork}>{task.title}1</div>
             <div className={css.times}>
               <div className={css.subclass}>提交截止时间：{task.endTime}</div>
               <span>|</span>
@@ -31,7 +34,7 @@ export default function StudentWork({ task }) {
           </div>
         }
         <div className={css.button}>
-          <button type='button'>提交作业</button>
+          <button type='button' onClick={toSubmit}>{task.submitStatus === 2 ? '提交作业' : '更新提交'}</button>
         </div>
       </div>
     </div>
