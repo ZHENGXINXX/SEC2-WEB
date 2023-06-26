@@ -7,7 +7,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import State from '@/tools/state';
 import { changeStudent, changeTeacher, pigeStudet, pigeTeacher, studentDelete, teacherDelete } from './api';
 
-export default function Course({ detail, period }) {
+export default function Course({ detail }) {
   const navigate = useNavigate();
 
   const pige = async () => {
@@ -29,7 +29,7 @@ export default function Course({ detail, period }) {
     } else {
       setTimeout(function () {
         window.location.reload();
-      }, 1000);
+      }, 100);
     }
   };
 
@@ -44,34 +44,34 @@ export default function Course({ detail, period }) {
     });
   };
 
-  const studentDel = async () => {
-    const [error, resData] = await studentDelete(detail.courseId);
-    if (error) {
-      message.error(error.message);
-      return;
-    }
-
-    if (resData.code === 200) {
-      message.success("操作成功");
-    } else {
-      message.error(resData.message);
-    }
+  const onDel = () => {
+    Modal.confirm({
+      title: '提示?',
+      icon: <ExclamationCircleOutlined />,
+      content: '确定要删除课程吗，删除后该课程所有信息都将消失',
+      okText: '删除',
+      cancelText: '取消',
+      onOk: del
+    });
   };
 
-  const teacherDel = async () => {
-    const [error, resData] = await teacherDelete(detail.courseId);
-    if (error) {
-      message.error(error.message);
-      return;
+  const del = async () => {
+    let res;
+    if(State.isStudent){
+      res = await studentDelete(detail.courseId);
+    }else{
+      res = await teacherDelete(detail.courseId);
     }
-
-    if (resData.code === 200) {
-      message.success("操作成功");
+    if (res[0]) {
+      message.error(res[0].message);
+      return;
     } else {
-      message.error(resData.message);
+      message.success("操作成功");
+      setTimeout(function () {
+        window.location.reload();
+      }, 100);
     }
   };
-
   const items = [
     {
       key: '归档',
@@ -83,14 +83,14 @@ export default function Course({ detail, period }) {
       key: '退课',
       label: (
         <span
-          onClick={State.isStudent ? studentDel : teacherDel}
+          onClick={onDel}
         >{State.isStudent ? '退课' : '删除'}</span>
       )
     }
   ];
 
   const toDetail = () => {
-    navigate('./classDetail', { state: { courseId: detail.courseId, students: detail.studentCount } });
+    navigate('./classDetail', { state: { courseId: detail.courseId } });
   };
 
   const changeTop = async () => {
@@ -114,7 +114,7 @@ export default function Course({ detail, period }) {
     } else {
       setTimeout(function () {
         window.location.reload();
-      }, 1000);
+      }, 100);
     }
   };
   return (
@@ -123,9 +123,9 @@ export default function Course({ detail, period }) {
       className={css.card}>
       {detail && <>
         <div className={css.course} onClick={toDetail}>
-          <div className={css.semester}>{period}</div>
+          <div className={css.semester}>{detail.schoolYear} {detail.semester}</div>
           <div className={css.title}>{detail.name}</div>
-          <div className={css.class}>{detail.courseId}</div>
+          <div className={css.class}>{detail.clazz}</div>
           <div className={css.yard}>加课码:&nbsp;{detail.courseCode}</div>
         </div>
         <div className={css.detail}>

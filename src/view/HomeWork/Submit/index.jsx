@@ -16,7 +16,6 @@ export default function Submit() {
 
   const onFinish = () => {
     form.validateFields().then((values) => {
-      window.console.log(values);
       if (!values.file) {
         message.error("请先选择文件后提交");
         return;

@@ -61,8 +61,8 @@ export default function Header() {
 
 	return (
 		<div className={css.header}>
-			<div className={css.logo}>
-				<img src='https://www.ketangpai.com/images/common/logo_blue.png' />
+			<div className={css.logo} onClick={()=>navigate('/')}>
+				<img src='https://www.ketangpai.com/images/common/logo_blue.png'/>
 			</div>
 			<div className={css.tabs}>
 				<Tabs items={tabItems} onTabClick={change} tabBarStyle={{height:64}}/>

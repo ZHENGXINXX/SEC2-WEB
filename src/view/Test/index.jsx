@@ -26,8 +26,7 @@ const ViewerComponent = () => {
       const file = new Blob([byteArray], { type: data.fileType });
       const fileUrl = URL.createObjectURL(file);
       setUrl(fileUrl);
-      // window.open(fileUrl);
-      window.console.log(fileUrl);
+      window.open(fileUrl);
     } else {
       message.error(resData.error);
     }

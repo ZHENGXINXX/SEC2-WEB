@@ -64,7 +64,7 @@ export default function Work() {
         </div>
       }
 
-      <AddModal ref={ref} />
+      <AddModal ref={ref} getWork={getWork}/>
     </div>
   );
 }

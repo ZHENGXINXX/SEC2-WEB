@@ -32,7 +32,6 @@ export default function Student() {
     let res;
     if (State.isStudent) {
       res = await studentCourse(id);
-      window.console.log(res);
     } else {
       res = await teacherCourse(id);
     }

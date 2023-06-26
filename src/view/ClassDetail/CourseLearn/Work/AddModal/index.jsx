@@ -1,11 +1,11 @@
-import { Button, DatePicker, Form, Input, Modal, Radio, Row, Upload, message } from 'antd';
+import { Button, DatePicker, Form, Input, InputNumber, Modal, Radio, Row, Upload, message } from 'antd';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { addFalse, addTrue } from '../api';
 import { getCourse } from '../../../api';
 
 const TextArea = Input.TextArea;
-function AddModal(props, ref) {
+function AddModal({ getWork }, ref) {
   const [form] = Form.useForm();
   const [sta, setSta] = useState(0);
   const [number, setNum] = useState(0);
@@ -69,6 +69,7 @@ function AddModal(props, ref) {
 
       if (res[1].code === 200) {
         message.success('添加成功');
+        getWork(visible.courseId);
       } else {
         message.error('添加失败');
       }
@@ -105,7 +106,7 @@ function AddModal(props, ref) {
           rules={rules}
           style={{ fontWeight: 'bold' }}
         >
-          <Input placeholder='作业标题' showCount maxLength={70}/>
+          <Input placeholder='作业标题' showCount maxLength={70} />
         </Form.Item>
 
         <Form.Item
@@ -156,6 +157,15 @@ function AddModal(props, ref) {
               rules={rules}
               labelCol={{ span: 7 }}>
               <DatePicker placeholder='请选择截止时间' style={{ width: 200 }} showTime />
+            </Form.Item>
+          </Row>
+          <Row justify='space-between'>
+            <Form.Item
+              label='总分'
+              name='totalCount'
+              rules={rules}
+              labelCol={{ span: 8 }}>
+              <InputNumber placeholder='请输入作业总分' style={{ width: 200 }} />
             </Form.Item>
           </Row>
         </div> : <div></div>}

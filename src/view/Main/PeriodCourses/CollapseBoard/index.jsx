@@ -20,7 +20,7 @@ export default function CollapseBoard({ courses }) {
         label: item.time,
         children: <div className={css.courses}>
           {item.teacherOrTeacherCourseDTOS.map((e, i) => {
-            return <Course detail={e} key={i} period={item.time} />;
+            return <Course detail={e} key={i}/>;
           })}
         </div>,
         style: panelStyle

@@ -4,11 +4,17 @@ import { UnorderedListOutlined } from '@ant-design/icons';
 import State from '@/tools/state';
 import { Dropdown, message } from 'antd';
 import { pigeStudet, pigeTeacher } from './api';
+import { useNavigate } from 'react-router-dom';
 
-export default function Course({ item, getAll,getPigeCourses }) {
+export default function Course({ item, getAll, getPigeCourses }) {
+  const navigate = useNavigate();
 
   const del = () => {
 
+  };
+
+  const toDetail = () => {
+    navigate('./classDetail', { state: { courseId: item.courseId } });
   };
 
   const restore = async () => {
@@ -57,15 +63,20 @@ export default function Course({ item, getAll,getPigeCourses }) {
         </div>
         <div className={css.right}>
           <div className={css.top}>
-            <div className={css.name}>{item.courseIntroduction}</div>
+            <div className={css.name}>{item.clazz}</div>
             <div className={css.operate}>
               <Dropdown menu={{ items }} type='primary' trigger={['click']} placement="bottom" overlayStyle={{ width: 80, textAlign: 'center' }}>
                 <UnorderedListOutlined className={css.img} />
               </Dropdown>
             </div>
           </div>
-          <div className={css.middle}>{item.semester}</div>
-          <div className={css.bottom}>{item.teachingMode}</div>
+          <div className={css.middle} onClick={toDetail}>{item.name}</div>
+          {State.isStudent ?
+            <><div className={css.bottom}>负责人：{item.teacherName}</div></> :
+            <><div className={css.bottom}>成员{item.studentCount}人</div></>
+          }
+
+
         </div>
       </div>
     </div>
