@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { UnorderedListOutlined } from '@ant-design/icons';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import State from '@/tools/state';
-import { changeStudent, changeTeacher, pigeStudet, pigeTeacher } from './api';
+import { changeStudent, changeTeacher, pigeStudet, pigeTeacher, studentDelete, teacherDelete } from './api';
 
 export default function Course({ detail, period }) {
   const navigate = useNavigate();
@@ -44,6 +44,34 @@ export default function Course({ detail, period }) {
     });
   };
 
+  const studentDel = async () => {
+    const [error, resData] = await studentDelete(detail.courseId);
+    if (error) {
+      message.error(error.message);
+      return;
+    }
+
+    if (resData.code === 200) {
+      message.success("操作成功");
+    } else {
+      message.error(resData.message);
+    }
+  };
+
+  const teacherDel = async () => {
+    const [error, resData] = await teacherDelete(detail.courseId);
+    if (error) {
+      message.error(error.message);
+      return;
+    }
+
+    if (resData.code === 200) {
+      message.success("操作成功");
+    } else {
+      message.error(resData.message);
+    }
+  };
+
   const items = [
     {
       key: '归档',
@@ -54,7 +82,9 @@ export default function Course({ detail, period }) {
     {
       key: '退课',
       label: (
-        <span>退课</span>
+        <span
+          onClick={State.isStudent ? studentDel : teacherDel}
+        >{State.isStudent ? '退课' : '删除'}</span>
       )
     }
   ];

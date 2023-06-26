@@ -1,4 +1,4 @@
-import { Form, Input, Modal, Radio, Row, Select, message } from 'antd';
+import { Form, Input, InputNumber, Modal, Radio, Row, Select, message } from 'antd';
 import React, { useImperativeHandle, useState } from 'react';
 import { CaretUpOutlined } from '@ant-design/icons';
 import { semester, years } from '@/components/Items';
@@ -93,7 +93,7 @@ function CreateCourse({getAll}, ref) {
           <Row justify='space-between'>
             <Form.Item
               label='授课模式'
-              name='teachingModal'
+              name='teachingMode'
               labelCol={{ span: 6 }}>
               <Radio.Group style={{ width: 320 }}>
                 <Radio value="线上">线下</Radio>
@@ -106,7 +106,7 @@ function CreateCourse({getAll}, ref) {
               name='classHour'
               labelCol={{ span: 3 }}
             >
-              <Input placeholder='请输入学时' style={{ width: 240 }} />
+              <InputNumber placeholder='请输入学时' style={{ width: 240 }} />
             </Form.Item>
           </Row>
 

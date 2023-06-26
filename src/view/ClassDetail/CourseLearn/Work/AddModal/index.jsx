@@ -105,7 +105,7 @@ function AddModal(props, ref) {
           rules={rules}
           style={{ fontWeight: 'bold' }}
         >
-          <Input placeholder='作业标题' />
+          <Input placeholder='作业标题' showCount maxLength={70}/>
         </Form.Item>
 
         <Form.Item

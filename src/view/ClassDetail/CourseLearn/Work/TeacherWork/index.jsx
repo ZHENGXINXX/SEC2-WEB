@@ -16,17 +16,17 @@ export default function TeacherWork({ task = {} }) {
     {
       key: 'shezhi',
       label: (
-        <a href='/main/userSetting'>
+        <span>
           删除
-        </a>
+        </span>
       )
     },
     {
       key: 'logout',
       label: (
-        <a>
+        <span>
           编辑
-        </a>
+        </span>
       )
     },
   ];
@@ -38,7 +38,6 @@ export default function TeacherWork({ task = {} }) {
         <div className={css.name}>作业</div>
       </div>
       <div className={css.right}>
-        {/* {task && */}
         <div className={css.detail}>
           <div className={css.name} onClick={toHomeWork}>{task.title}</div>
           <div className={css.times}>
@@ -53,7 +52,6 @@ export default function TeacherWork({ task = {} }) {
             <div className={css.subclass}>{task.type === 1 ? '个人作业' : '小组作业'}</div>
           </div>
         </div>
-        {/* } */}
         <div className={css.operate}>
           <div className={css.left1}>
             {task.state === 1 ?
