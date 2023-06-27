@@ -26,10 +26,6 @@ export const typeItems = [
     key: 'learn',
     label: '我学的'
   },
-  {
-    key: 'help',
-    label: '我协助的',
-  },
 ];
 
 export const years = [

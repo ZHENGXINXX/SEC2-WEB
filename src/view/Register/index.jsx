@@ -142,7 +142,7 @@ export default function Register() {
 
             {
               isStu ? <Form.Item
-                name='student_teacher_id'
+                name='studentTeacherId'
                 className={css.item}
                 rules={[{ required: true, message: '请输入学号' }]}>
                 <Input placeholder='请输入学号' style={{ height: 50 }} />

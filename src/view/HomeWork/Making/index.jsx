@@ -7,7 +7,6 @@ import AchieveModal from './AchieveModal';
 
 export default function Making({ data = {} }) {
   const ref = useRef();
-
   const [dataSource, setData] = useState([]);
   const { taskId } = useLocation().state;
 
@@ -33,8 +32,8 @@ export default function Making({ data = {} }) {
   const columns = [
     {
       title: '学号',
-      dataIndex: 'studentId',
-      key: 'studentId',
+      dataIndex: 'studentNumber',
+      key: 'studentNumber',
       align: 'center',
       ellipsis: true
     },
@@ -46,16 +45,19 @@ export default function Making({ data = {} }) {
       ellipsis: true
     },
     {
-      title: '批阅次数',
-      dataIndex: 'correctionNum',
-      key: 'correctionNum',
-      align: 'center',
-      ellipsis: true
-    },
-    {
       title: '批改状态',
       dataIndex: 'submitStatus',
       key: 'submitStatus',
+      align: 'center',
+      ellipsis: true,
+      render: (submitStatus) => (
+        <>{submitStatus === 1 ? "已批改" : "未批改"}</>
+      )
+    },
+    {
+      title: '提交时间',
+      dataIndex: 'submitTime',
+      key: 'submitTime',
       align: 'center',
       ellipsis: true
     },
@@ -79,7 +81,7 @@ export default function Making({ data = {} }) {
       fixed: 'right',
       render: (text) => (
         <>
-          <Button type='link' onClick={() => { setAchieve(text.id); }}>打分</Button>
+          <Button type='link' onClick={() => { setAchieve(text.id); }} disabled={text.submitStatus === 1 ? false : true}>打分</Button>
         </>
       )
     }

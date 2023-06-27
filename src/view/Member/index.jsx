@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import css from './index.module.less';
 import Members from './Members';
-import { Card, Input, message } from 'antd';
+import { Card, message } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { getList } from './api';
 
@@ -37,10 +37,6 @@ export default function Member() {
   }, []);
   return (
     <div className={css.member}>
-      <div className={css.search}>
-        <div />
-        <Input.Search style={{ width: 200 }} placeholder='请输入信息查询' />
-      </div>
       <div className={css.content}>
         <Card className={css.groups}>
           <div className={css.header}>全部成员</div>

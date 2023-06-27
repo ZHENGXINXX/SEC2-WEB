@@ -49,7 +49,6 @@ export default function Account({ messages, update }) {
           <OneRow name='专业' value={messages.speciality} />
           {messages.role === 2 ? <>
             <OneRow name='班级' value={messages.clazz} />
-            <OneRow name='年级' value={messages.clazz} />
             <OneRow name='入学时间' value={messages.intake} />
           </> : <>
             <OneRow name='所授课程' value={messages.coursesTaught} />

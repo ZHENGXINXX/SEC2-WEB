@@ -1,4 +1,4 @@
-import { DatePicker, Form, Input, Modal, Select, message } from 'antd';
+import { DatePicker, Form, Input, Modal, message } from 'antd';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
 import { detail, update } from '../../api';
 import moment from 'moment';
@@ -67,33 +67,6 @@ function EditModal({ updateList }, ref) {
     wrapperCol: { span: 20 }
   };
 
-  const items = [
-    {
-      label: '一年级',
-      value: '1'
-    },
-    {
-      label: '二年级',
-      value: '2'
-    },
-    {
-      label: '三年级',
-      value: '3'
-    },
-    {
-      label: '四年级',
-      value: '4'
-    },
-    {
-      label: '五年级',
-      value: '5'
-    },
-    {
-      label: '六年级',
-      value: '6'
-    },
-  ];
-
   return (
     <Modal
       forceRender
@@ -150,14 +123,6 @@ function EditModal({ updateList }, ref) {
             rules={rule}
             {...layout}>
             <Input placeholder='请输入班级' />
-          </Form.Item>
-
-          <Form.Item
-            label="年级"
-            name="clazz"
-            rules={rule}
-            {...layout}>
-            <Select placeholder='请输入年级' options={items} />
           </Form.Item>
 
           <Form.Item

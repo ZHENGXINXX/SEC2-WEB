@@ -32,7 +32,7 @@ function RoleModal({ updateList }, ref) {
           onCancel();
           setTimeout(function () {
             window.location.reload();
-          }, 1000);
+          }, 100);
         } else {
           message.error(resData.message);
         }
