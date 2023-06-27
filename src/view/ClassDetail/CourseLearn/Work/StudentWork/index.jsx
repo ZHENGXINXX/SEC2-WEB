@@ -2,15 +2,15 @@ import React from 'react';
 import css from './index.module.less';
 import { useNavigate } from 'react-router-dom';
 
-export default function StudentWork({ task={} }) {
+export default function StudentWork({ task = {} }) {
   const navigate = useNavigate();
 
   const toHomeWork = () => {
-    navigate('/homework', { state: { index: 'detail', taskId: task.taskId } });
+    navigate('/homework', { state: { index: 'detail', taskId: task.taskId, id: task.id } });
   };
 
   const toSubmit = () => {
-    navigate('/homework', { state: { index: 'submit', taskId: task.taskId } });
+    navigate('/homework', { state: { index: 'submit', taskId: task.taskId, id: task.id } });
   };
 
   return (

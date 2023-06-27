@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import FileView from "react-file-viewer";
+import Unsupported from './Unsupported';
+import Error from './Error';
 
-export default function FileViewModal({file={}}) {
-  window.console.log(file);
+export default function FileViewModal({ file = {} }) {
   const [url, setUrl] = useState("");
   const [type, setType] = useState("");
 
@@ -17,10 +18,9 @@ export default function FileViewModal({file={}}) {
     const fileUrl = URL.createObjectURL(file);
     const fileType = data.fileName;
     const index = fileType.lastIndexOf(".");
-    window.console.log(fileType.substring(index + 1, fileType.length));
-    window.console.log(fileType.substring(index + 1, fileType.length));
     setType(fileType.substring(index + 1, fileType.length));
     setUrl(fileUrl);
+    // URL.revokeObjectURL(fileUrl);
   };
 
   useEffect(() => {
@@ -33,6 +33,7 @@ export default function FileViewModal({file={}}) {
       fileType={type}
       filePath={url}
       errorComponent={Error} //发生错误时呈/格式不支持时展示的文件
+      unsupportedComponent={Unsupported} //格式不支持时展示的文件
     />
   );
 }

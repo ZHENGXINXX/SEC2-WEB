@@ -33,11 +33,11 @@ export default function UploadFile({ form }) {
         </div>
         <Form.Item
           name='homeworkMessage'>
-          <TextArea 
-          placeholder='请输入留言' 
-          showCount 
-          maxLength={255} 
-          autoSize={{ minRows: 5 }} />
+          <TextArea
+            placeholder='请输入留言'
+            showCount
+            maxLength={255}
+            autoSize={{ minRows: 5 }} />
         </Form.Item>
       </Form>
     </Card>

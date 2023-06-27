@@ -5,12 +5,14 @@ import { WarningOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Detail from './Detail';
 import { Dropdown, Modal, message } from 'antd';
-import { delWork } from '../api';
+import { delNo, delYes } from '../api';
 import EditModal from '../EditModal';
+import Send from '../Send';
 
 export default function TeacherWork({ task = {}, getWork }) {
   const navigate = useNavigate();
   const { courseId } = useLocation().state;
+  const sendRef = useRef();
   const editRef = useRef();
 
   const toHomeWork = () => {
@@ -22,17 +24,22 @@ export default function TeacherWork({ task = {}, getWork }) {
   };
 
   const del = async () => {
-    const [error, resData] = await delWork(task.taskId);
-    if (error) {
-      message.error(error.message);
+    let res;
+    if (task.state === 1) {
+      res = await delYes(task.taskId);
+    } else {
+      res = await delNo(task.taskId);
+    }
+    if (res[0]) {
+      message.error(res[0].message);
       return;
     }
 
-    if (resData.code === 200) {
+    if (res[1].code === 200) {
       message.success("删除作业成功");
       getWork(courseId);
     } else {
-      message.error(resData.message);
+      message.error(res[1].message);
     }
   };
 
@@ -41,7 +48,7 @@ export default function TeacherWork({ task = {}, getWork }) {
       title: '提示?',
       icon: <WarningOutlined style={{ color: 'red' }} />,
       width: 600,
-      content: <div style={{ padding: '30px 0', fontSize: 20 }}>确定要删除该作业吗，删除后该课程所有作业信息都将消失</div>,
+      content: <div style={{ padding: '30px 0', fontSize: 20 }}>确定要删除该作业吗，删除后该作业所有信息都将消失</div>,
       okText: '删除',
       cancelText: '取消',
       onOk: del
@@ -50,6 +57,10 @@ export default function TeacherWork({ task = {}, getWork }) {
 
   const edit = () => {
     editRef.current.setVis({ open: true, courseId: courseId, taskId: task.taskId });
+  };
+
+  const toSend = () =>{
+    sendRef.current.setVis({ open: true, courseId: courseId, taskId: task.taskId });
   };
 
   const items = [
@@ -100,7 +111,7 @@ export default function TeacherWork({ task = {}, getWork }) {
                 <Detail name='未批完' value={task.isNotCorrection} />
                 <Detail name='未交' value={task.isNotSubmit} />
               </div> :
-              <div style={{ marginRight: 20 }}>
+              <div style={{ marginRight: 20 }} onClick={toSend}>
                 <DingtalkOutlined style={{ fontSize: 30 }} />
                 <div>发布</div>
               </div>
@@ -114,7 +125,8 @@ export default function TeacherWork({ task = {}, getWork }) {
           </div>
         </div>
       </div>
-      <EditModal ref={editRef} />
+      <EditModal ref={editRef} getWork={getWork}/>
+      <Send ref={sendRef} getWork={getWork} />
     </div>
   );
 }

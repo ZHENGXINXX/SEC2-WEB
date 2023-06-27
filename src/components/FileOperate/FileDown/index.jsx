@@ -1,5 +1,4 @@
 export const down = (data) => {
-  window.console.log(data);
   const byteCharacters = atob(data.fileContent);
   const byteNumbers = new Array(byteCharacters.length);
   for (let i = 0; i < byteCharacters.length; i++) {
@@ -17,4 +16,5 @@ export const down = (data) => {
   );
   document.body.appendChild(link);
   link.click();
+  // URL.revokeObjectURL(fileUrl);
 };

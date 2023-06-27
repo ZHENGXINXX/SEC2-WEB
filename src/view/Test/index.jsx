@@ -26,19 +26,8 @@ export default function Test() {
       const fileUrl = URL.createObjectURL(file);
       const fileType = data.fileName;
       const index = fileType.lastIndexOf(".");
-      window.console.log(fileType.substring(index + 1,fileType.length));
       setType(fileType.substring(index + 1,fileType.length));
-      // window.open(fileUrl);
       setUrl(fileUrl);
-      // var link = document.createElement('a');
-      // link.style.display = 'none';
-      // link.href = fileUrl;
-      // link.setAttribute(
-      //   'download',
-      //   data.fileName
-      // );
-      // document.body.appendChild(link);
-      // link.click();
     }
   };
 

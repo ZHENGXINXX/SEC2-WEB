@@ -1,15 +1,12 @@
-import { Button, DatePicker, Form, Input, InputNumber, Modal, Radio, Row, Upload, message } from 'antd';
+import { Form, Input, Modal, Radio, Upload, message } from 'antd';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { addFalse, addTrue, detail } from '../api';
-import { getCourse } from '../../../api';
-import moment from 'moment/moment';
+import { detail, edit } from '../api';
+import css from './index.module.less';
 
 const TextArea = Input.TextArea;
 function EditModal({ getWork }, ref) {
   const [form] = Form.useForm();
-  const [sta, setSta] = useState(0);
-  const [number, setNum] = useState(0);
   const [visible, setVis] = useState({ open: false, courseId: 0, taskId: 0 });
   useImperativeHandle(ref, () => ({ setVis }));
 
@@ -27,20 +24,6 @@ function EditModal({ getWork }, ref) {
     return false;
   };
 
-  const getJoinNumber = async (id) => {
-    const [error, resData] = await getCourse(id);
-    if (error) {
-      message.error(error.message);
-      return;
-    }
-
-    if (resData.code === 200) {
-      setNum(resData.data.joinNumber);
-    } else {
-      message.error(resData.message);
-    }
-  };
-
   const getDetail = async (id) => {
     const [error, resData] = await detail(id);
     if (error) {
@@ -49,13 +32,7 @@ function EditModal({ getWork }, ref) {
     }
 
     if (resData.code === 200) {
-      const data = {
-        ...resData.data,
-        endTime: resData.data.endTime && moment(resData.data.endTime, 'YYYY-MM-DD HH:mm:ss'),
-        startTime: resData.data.startTime && moment(resData.data.startTime, 'YYYY-MM-DD HH:mm:ss'),
-        file: resData.data.jobAttachments.fileName
-      };
-      form.setFieldsValue(data);
+      form.setFieldsValue(resData.data);
     } else {
       message.error(resData.message);
     }
@@ -63,39 +40,28 @@ function EditModal({ getWork }, ref) {
 
   useEffect(() => {
     if (visible.courseId && visible.taskId) {
-      getJoinNumber(visible.courseId);
       getDetail(visible.taskId);
     }
   }, [visible.courseId, visible.taskId]);
 
   const onFinish = () => {
     form.validateFields().then(async (values) => {
-      values.courseId = visible.courseId;
-      values.jobAttachments = values.file.file;
-      let res;
-      if (values.state === 1) {
-        values.startTime = values.startTime.format('YYYY-MM-DD HH:mm:ss');
-        values.endTime = values.endTime.format('YYYY-MM-DD HH:mm:ss');
-        if (number > 0)
-          res = await addTrue(values);
-        else
-          message.warning("该课程无学生，不能发布课程");
-      } else {
-        res = await addFalse(values);
+      values.id = visible.taskId;
+      if(values.file){
+        values.jobAttachments = values.file.file;
       }
-
-      if (res[0]) {
-        message.error(res[0].message);
+      const [error,resData] = await edit(values);
+      if(error){
+        message.error(error.message);
         onCancel();
         return;
       }
 
-      if (res[1].code === 200) {
-        message.success('编辑成功');
+      if(resData.code === 200){
+        message.success("编辑成功");
         getWork(visible.courseId);
-      } else {
-        message.error('编辑失败');
-        onCancel();
+      }else{
+        message.error(resData.message);
       }
       onCancel();
     });
@@ -144,55 +110,17 @@ function EditModal({ getWork }, ref) {
         </Form.Item>
 
         <Form.Item
-          label='上传文件'
           name='file'
-          rules={rules}
           valuePropName="file">
-          <Upload beforeUpload={beforeUpload}>
-            <Button icon={<UploadOutlined />}>选择文件</Button>
+          <Upload beforeUpload={beforeUpload} listType='picture'>
+            <div className={css.content}>
+              <div className={css.upload}>
+                <UploadOutlined className={css.size} />
+              </div>
+              <div className={css.link}>点击更新附件</div>
+            </div>
           </Upload>
         </Form.Item>
-
-        <Form.Item
-          label='是否立即发布'
-          name='state'
-          rules={rules}
-          labelCol={{ span: 4 }}
-        >
-          <Radio.Group onChange={(e) => setSta(e.target.value)} style={{ width: 200 }}>
-            <Radio value={2}>不发布</Radio>
-            <Radio value={1}>发布</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        {sta === 1 ? <div>
-          <Row justify='space-between'>
-            <Form.Item
-              label="发布时间"
-              name='startTime'
-              rules={rules}
-              labelCol={{ span: 7 }}>
-              <DatePicker placeholder='请选择开始时间' style={{ width: 200 }} showTime />
-            </Form.Item>
-
-            <Form.Item
-              label="截止时间"
-              name='endTime'
-              rules={rules}
-              labelCol={{ span: 7 }}>
-              <DatePicker placeholder='请选择截止时间' style={{ width: 200 }} showTime />
-            </Form.Item>
-          </Row>
-          <Row justify='space-between'>
-            <Form.Item
-              label='总分'
-              name='totalCount'
-              rules={rules}
-              labelCol={{ span: 8 }}>
-              <InputNumber placeholder='请输入作业总分' style={{ width: 200 }} />
-            </Form.Item>
-          </Row>
-        </div> : <div></div>}
       </Form>
     </Modal>
   );

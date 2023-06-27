@@ -1,8 +1,9 @@
-import { Button, DatePicker, Form, Input, InputNumber, Modal, Radio, Row, Upload, message } from 'antd';
+import { DatePicker, Form, Input, InputNumber, Modal, Radio, Row, Upload, message } from 'antd';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { addFalse, addTrue } from '../api';
 import { getCourse } from '../../../api';
+import css from './index.module.less';
 
 const TextArea = Input.TextArea;
 function AddModal({ getWork }, ref) {
@@ -120,12 +121,16 @@ function AddModal({ getWork }, ref) {
         </Form.Item>
 
         <Form.Item
-          label='上传文件'
           name='file'
           rules={rules}
           valuePropName="file">
-          <Upload beforeUpload={beforeUpload}>
-            <Button icon={<UploadOutlined />}>选择文件</Button>
+          <Upload beforeUpload={beforeUpload} listType='picture'>
+            <div className={css.content}>
+              <div className={css.upload}>
+                <UploadOutlined className={css.size} />
+              </div>
+              <div className={css.link}>点击上传添加附件</div>
+            </div>
           </Upload>
         </Form.Item>
 
@@ -162,7 +167,7 @@ function AddModal({ getWork }, ref) {
           <Row justify='space-between'>
             <Form.Item
               label='总分'
-              name='totalCount'
+              name='totalScore'
               rules={rules}
               labelCol={{ span: 8 }}>
               <InputNumber placeholder='请输入作业总分' style={{ width: 200 }} />

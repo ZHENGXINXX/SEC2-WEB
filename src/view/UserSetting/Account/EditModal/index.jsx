@@ -1,6 +1,7 @@
-import { Form, Input, Modal, Select, message } from 'antd';
+import { DatePicker, Form, Input, Modal, Select, message } from 'antd';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
 import { detail, update } from '../../api';
+import moment from 'moment';
 
 function EditModal({ updateList }, ref) {
   const [form] = Form.useForm();
@@ -12,6 +13,9 @@ function EditModal({ updateList }, ref) {
   const onFinish = () => {
     form.validateFields().then(async (values) => {
       values.id = visible.id;
+      if(values.intake){
+        values.intake = values.intake.format('YYYY-MM-DD');
+      }
       const [error, resData] = await update(values);
       if (error) {
         message.error(error.message);
@@ -41,8 +45,12 @@ function EditModal({ updateList }, ref) {
     }
 
     if (resData.code === 200) {
-      form.setFieldsValue(resData.data);
-      setMessages(resData.data);
+      const data ={
+        ...resData.data,
+        intake:moment(resData.data.intake, 'YYYY-MM-DD')
+      };
+      form.setFieldsValue(data);
+      setMessages(data);
     } else {
       message.error(resData.message);
     }
@@ -156,7 +164,7 @@ function EditModal({ updateList }, ref) {
             label="入学时间"
             name="intake"
             {...layout}>
-            <Input placeholder='请输入入学时间' />
+            <DatePicker placeholder='请输入入学时间' />
           </Form.Item>
         </> : <>
           <Form.Item

@@ -36,10 +36,17 @@ export const getNumber = (id) =>{
 };
 
 /**
- * 删除作业
+ * 删除作业未发布
  */
-export const delWork = (taskId) =>{
-  return baseReq.connection('delete',`/task/delete/${taskId}`);
+export const delNo = (taskId) =>{
+  return baseReq.connection('delete',`/task/delete_not_submit/${taskId}`);
+};
+
+/**
+ * 删除作业已发布
+ */
+export const delYes = (taskId) =>{
+  return baseReq.connection('delete',`/task/delete_submit/${taskId}`);
 };
 
 /**
@@ -47,4 +54,19 @@ export const delWork = (taskId) =>{
  */
 export const detail = (id) =>{
   return baseReq.connection('get',`/task/task_detail/${id}`);
+};
+
+/**
+ * 发布作业
+ */
+export const submit = (data) =>{
+  return baseReq.connection('post',`/task/submit`,data);
+};
+
+/**
+ * 
+ * 编辑作业
+ */
+export const edit = (data)=>{
+  return baseReq.connection('post','/task/update_task',data,true);
 };

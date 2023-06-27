@@ -4,7 +4,7 @@ import { down } from '@/components/FileOperate/FileDown';
 import { Drawer } from 'antd';
 import FileViewModal from '@/components/FileOperate/FileViewModal';
 
-export default function File({ file = {} }) {
+export default function File({ file = {}, width = 1224 }) {
   const size = parseInt(file.fileSize) / 1000;
   const [open, setOpen] = useState(false);
 
@@ -17,7 +17,7 @@ export default function File({ file = {} }) {
   };
 
   return (
-    <div className={css.file}>
+    <div className={css.file} style={{width:width}}>
       <div className={css.img} onClick={() => fileView(file)}>
         <img src='https://bpic.588ku.com/element_origin_min_pic/19/04/09/f6ee1317a9bb3ef11258a0297a4cabe7.jpg' />
       </div>
@@ -30,8 +30,8 @@ export default function File({ file = {} }) {
           下载
         </div>
       </div>
-      <Drawer open={open} onClose={onClose}  placement="left" style={{width:1200}}>
-        <FileViewModal file={file}/>
+      <Drawer open={open} onClose={onClose} placement="left" style={{ width: 1200 }} title={file.fileName}>
+        <FileViewModal file={file} />
       </Drawer>
     </div>
   );
