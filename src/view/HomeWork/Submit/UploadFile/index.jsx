@@ -32,7 +32,7 @@ export default function UploadFile({ form }) {
           <span>选填</span>
         </div>
         <Form.Item
-          name='message'>
+          name='homeworkMessage'>
           <TextArea 
           placeholder='请输入留言' 
           showCount 

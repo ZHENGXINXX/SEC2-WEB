@@ -2,11 +2,12 @@ import { Card, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import css from './index.module.less';
 import CourseLearn from './CourseLearn';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getCourse } from './api';
 
 export default function classDetail() {
   const { courseId } = useLocation().state;
+  const navigate = useNavigate();
   const [index, setIndex] = useState(0);
   const [detail, setDetial] = useState({});
 
@@ -44,6 +45,10 @@ export default function classDetail() {
     }
   };
 
+  const toMembers = ()=>{
+    navigate('/members',{state:{courseId:courseId}});
+  };
+
   useEffect(() => {
     if (courseId)
       getCourseDetail(courseId);
@@ -57,7 +62,7 @@ export default function classDetail() {
           <h2>{detail.clazz}</h2>
           <div className={css.detail}>
             <div className={css.yard}>加课码 {detail.courseCode}</div>
-            <div className={css.number}>已有{detail.joinNumber}人加入</div>
+            <div className={css.number} onClick={toMembers}>已有{detail.joinNumber}人加入</div>
           </div>
           <div className={css.button}>
             <button disabled>暂无课堂</button>

@@ -17,6 +17,10 @@ export default function Course({ item, getAll, getPigeCourses }) {
     navigate('./classDetail', { state: { courseId: item.courseId } });
   };
 
+  const toMembers = () => {
+    navigate('/members', { state: { courseId: item.courseId } });
+  };
+
   const restore = async () => {
     let res;
     const values = {
@@ -73,7 +77,7 @@ export default function Course({ item, getAll, getPigeCourses }) {
           <div className={css.middle} onClick={toDetail}>{item.name}</div>
           {State.isStudent ?
             <><div className={css.bottom}>负责人：{item.teacherName}</div></> :
-            <><div className={css.bottom}>成员{item.studentCount}人</div></>
+            <><div className={css.bottom} onClick={toMembers}>成员{item.studentCount}人</div></>
           }
 
 
