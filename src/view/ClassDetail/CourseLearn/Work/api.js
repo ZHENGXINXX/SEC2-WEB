@@ -34,3 +34,17 @@ export const getStuWork = (data) => {
 export const getNumber = (id) =>{
   return baseReq.connection('get',`/course/course_detail/${id}`);
 };
+
+/**
+ * 删除作业
+ */
+export const delWork = (taskId) =>{
+  return baseReq.connection('delete',`/task/delete/${taskId}`);
+};
+
+/**
+ * 作业详情
+ */
+export const detail = (id) =>{
+  return baseReq.connection('get',`/task/task_detail/${id}`);
+};

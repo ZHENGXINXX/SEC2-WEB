@@ -38,10 +38,10 @@ const routerList = [
 		component: lazy(() => import('@/view/HomeWork'))
 	},
 	{
-		path: '/test',
-		label: '测试',
-		component: lazy(() => import('@/view/Test'))
-	},
+		path: '/members',
+		label: '作业详情',
+		component: lazy(() => import('@/view/Member'))
+	}
 ];
 
 export default routerList;

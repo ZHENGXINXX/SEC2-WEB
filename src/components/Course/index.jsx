@@ -46,9 +46,9 @@ export default function Course({ detail }) {
   const onDel = () => {
     Modal.confirm({
       title: '提示?',
-      icon: <WarningOutlined style={{color:'red'}}/>,
-      width:600,
-      content: <div style={{padding:'30px 0',fontSize:20}}>确定要删除课程吗，删除后该课程所有信息都将消失</div>,
+      icon: <WarningOutlined style={{ color: 'red' }} />,
+      width: 600,
+      content: <div style={{ padding: '30px 0', fontSize: 20 }}>确定要删除课程吗，删除后该课程所有信息都将消失</div>,
       okText: '删除',
       cancelText: '取消',
       onOk: del
@@ -59,8 +59,8 @@ export default function Course({ detail }) {
     let res;
     if (State.isStudent) {
       const values = {
-        courseId:detail.courseId,
-        studentId:State.userInfo.id
+        courseId: detail.courseId,
+        studentId: State.userInfo.id
       };
       res = await studentDelete(values);
     } else {
@@ -121,6 +121,11 @@ export default function Course({ detail }) {
       }, 100);
     }
   };
+
+  const toMembers = () => {
+    navigate('/members', { state: { courseId: detail.courseId } });
+  };
+
   return (
     <Card
       hoverable
@@ -137,7 +142,7 @@ export default function Course({ detail }) {
             <div className={css.type}>{State.isStudent ? "学" : "教"}</div>
             {State.isStudent
               ? <div>负责人：{detail.teacherName}</div>
-              : <div>成员数量：{detail.studentCount}</div>
+              : <div onClick={toMembers}>成员数量：{detail.studentCount}</div>
             }
 
           </div>

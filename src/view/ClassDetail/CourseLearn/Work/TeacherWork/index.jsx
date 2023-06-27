@@ -1,26 +1,62 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import css from './index.module.less';
 import { DingtalkOutlined, MoreOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { WarningOutlined } from '@ant-design/icons';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Detail from './Detail';
-import { Dropdown } from 'antd';
+import { Dropdown, Modal, message } from 'antd';
+import { delWork } from '../api';
+import EditModal from '../EditModal';
 
-export default function TeacherWork({ task = {} }) {
+export default function TeacherWork({ task = {}, getWork }) {
   const navigate = useNavigate();
+  const { courseId } = useLocation().state;
+  const editRef = useRef();
 
   const toHomeWork = () => {
-    navigate('/homework',{state:{index:'detail'}});
+    navigate('/homework', { state: { index: 'detail', taskId: task.taskId } });
   };
 
-  const toMaking = () =>{
-    navigate('/homework',{state:{index:'making'}});
+  const toMaking = () => {
+    navigate('/homework', { state: { index: 'making', taskId: task.taskId } });
+  };
+
+  const del = async () => {
+    const [error, resData] = await delWork(task.taskId);
+    if (error) {
+      message.error(error.message);
+      return;
+    }
+
+    if (resData.code === 200) {
+      message.success("删除作业成功");
+      getWork(courseId);
+    } else {
+      message.error(resData.message);
+    }
+  };
+
+  const onDel = () => {
+    Modal.confirm({
+      title: '提示?',
+      icon: <WarningOutlined style={{ color: 'red' }} />,
+      width: 600,
+      content: <div style={{ padding: '30px 0', fontSize: 20 }}>确定要删除该作业吗，删除后该课程所有作业信息都将消失</div>,
+      okText: '删除',
+      cancelText: '取消',
+      onOk: del
+    });
+  };
+
+  const edit = () => {
+    editRef.current.setVis({ open: true, courseId: courseId, taskId: task.taskId });
   };
 
   const items = [
     {
       key: 'shezhi',
       label: (
-        <span>
+        <span onClick={onDel}>
           删除
         </span>
       )
@@ -28,7 +64,7 @@ export default function TeacherWork({ task = {} }) {
     {
       key: 'logout',
       label: (
-        <span>
+        <span onClick={edit}>
           编辑
         </span>
       )
@@ -78,6 +114,7 @@ export default function TeacherWork({ task = {} }) {
           </div>
         </div>
       </div>
+      <EditModal ref={editRef} />
     </div>
   );
 }

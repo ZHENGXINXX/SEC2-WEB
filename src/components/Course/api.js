@@ -42,7 +42,7 @@ export const pigeTeacher = (data) =>{
  * @returns 
  */
 export const studentDelete = (data) =>{
-  return baseReq.connection('post',`/studentCourse/delete/`,data);
+  return baseReq.connection('post',`/studentCourse/delete`,data);
 };
 
 /**

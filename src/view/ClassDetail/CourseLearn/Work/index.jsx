@@ -44,7 +44,7 @@ export default function Work() {
   return (
     <div className={css.content}>
       <div className={css.top}>
-        <div className={css.left}>共0个活动</div>
+        <div className={css.left}>共{tasks.length}个活动</div>
         {State.isTeacher ?
           <div className={css.right}>
             <button onClick={add}>+ 添加作业</button>
@@ -56,14 +56,13 @@ export default function Work() {
         <div className={css.box}>
           {tasks.map((item, index) => {
             if (State.isTeacher) {
-              return <TeacherWork task={item} key={index} />;
+              return <TeacherWork task={item} key={index} getWork={getWork}/>;
             }
             return <StudentWork task={item} key={index} />;
           })}
 
         </div>
       }
-
       <AddModal ref={ref} getWork={getWork}/>
     </div>
   );

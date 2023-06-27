@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 // import { decode } from 'base-64';
 import { message } from "antd";
-import {test} from './api';
+import { test } from './api';
 // import { Buffer } from 'buffer';
 
 const ViewerComponent = () => {
-  const [url,setUrl] = useState();
+  const [url, setUrl] = useState();
 
   const getData = async () => {
     const [error, resData] = await test();
@@ -26,7 +26,17 @@ const ViewerComponent = () => {
       const file = new Blob([byteArray], { type: data.fileType });
       const fileUrl = URL.createObjectURL(file);
       setUrl(fileUrl);
-      window.open(fileUrl);
+      var link = document.createElement('a');
+      link.style.display = 'none';
+      link.href = fileUrl;
+      link.target = "_blank";
+      link.click();
+      // link.setAttribute(
+      // 'download',
+      // data.fileName
+      // );
+      // document.body.appendChild(link);
+      // link.click();
     } else {
       message.error(resData.error);
     }
@@ -37,7 +47,7 @@ const ViewerComponent = () => {
   }, []);
 
   return (
-    <img src={url}> 
+    <img src={url}>
     </img>
   );
 };
