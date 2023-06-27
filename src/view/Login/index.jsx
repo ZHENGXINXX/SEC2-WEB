@@ -27,11 +27,12 @@ export default function Login() {
 
   return (
     <div>
+      <img src='https://www.ketangpai.com/images/login/newbg.png' className={css.imgL}/>
       <Layout className={css.login}>
         <Layout.Content className={css.content}>
           <div className={css.box}>
-          <div className={css.title}>账号登录</div>
-            <Tabs items={items} centered/>
+            <div className={css.title}>账号登录</div>
+            <Tabs items={items} centered />
           </div>
         </Layout.Content>
       </Layout>

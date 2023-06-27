@@ -75,9 +75,10 @@ export default function Register() {
   };
 
   return (
-    <div>
+    <div className={css.all}>
+      <img src='https://www.ketangpai.com/images/login/newbg.png' className={css.imgR}/>
       <Layout className={css.register}>
-        <Layout.Content className={css.content}>
+        <Layout.Content>
           <Form
             name='norm_login'
             className={css.form}

@@ -92,7 +92,7 @@ export default function Submit({ data = {} }) {
           </div>
           <div className={css.bottom}>
             <div className={css.type}>{data.type === 1 ? "个人作业" : "小组作业"}</div>
-            <div className={css.type}>提交起止时间： {data.startToEnd}</div>
+            <div className={css.type}>提交起止时间：{data.startTime} - {data.endTime}</div>
             <div className={css.limit}>{data.totalScore}</div>
             <div className={css.limit}>查重</div>
           </div>
