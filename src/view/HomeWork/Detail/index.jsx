@@ -19,6 +19,7 @@ export default function Detail() {
 
     if (resData.code === 200) {
       setMes(resData.data);
+      window.console.log(resData.data);
       setFile(resData.data.jobAttachments);
     } else {
       message.error(resData.message);

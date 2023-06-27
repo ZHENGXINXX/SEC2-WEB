@@ -41,6 +41,11 @@ const routerList = [
 		path: '/members',
 		label: '作业详情',
 		component: lazy(() => import('@/view/Member'))
+	},
+	{
+		path: '/test',
+		label: '作业详情',
+		component: lazy(() => import('@/view/Test'))
 	}
 ];
 
