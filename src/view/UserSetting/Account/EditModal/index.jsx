@@ -70,7 +70,7 @@ function EditModal({ updateList }, ref) {
   return (
     <Modal
       forceRender
-      title='修改学生信息'
+      title="修改基础信息"
       width={650}
       open={visible.visible}
       onOk={onFinish}

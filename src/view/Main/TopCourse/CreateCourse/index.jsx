@@ -39,7 +39,7 @@ function CreateCourse({getAll}, ref) {
   return (
     <Modal
       forceRender
-      title='加入课程'
+      title='创建课程'
       width={800}
       open={visible}
       afterClose={()=>form.resetFields()}

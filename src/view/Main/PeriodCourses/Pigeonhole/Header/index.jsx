@@ -11,7 +11,7 @@ export default function Header() {
     if (State.isStudent) {
       setItems(typeItems.slice(1));
     } else {
-      setItems(typeItems);
+      setItems(typeItems.slice(0,1));
     }
   }, [State.userRole]);
 

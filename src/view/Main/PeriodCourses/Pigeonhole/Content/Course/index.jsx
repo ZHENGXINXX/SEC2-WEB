@@ -69,7 +69,7 @@ export default function Course({ item, getAll, getPigeCourses }) {
           <div className={css.top}>
             <div className={css.name}>{item.clazz}</div>
             <div className={css.operate}>
-              <Dropdown menu={{ items }} type='primary' trigger={['click']} placement="bottom" overlayStyle={{ width: 80, textAlign: 'center' }}>
+              <Dropdown menu={{ items }} trigger={['click']} placement="bottom" overlayStyle={{textAlign:"center"}}>
                 <UnorderedListOutlined className={css.img} />
               </Dropdown>
             </div>
@@ -79,8 +79,6 @@ export default function Course({ item, getAll, getPigeCourses }) {
             <><div className={css.bottom}>负责人：{item.teacherName}</div></> :
             <><div className={css.bottom} onClick={toMembers}>成员{item.studentCount}人</div></>
           }
-
-
         </div>
       </div>
     </div>

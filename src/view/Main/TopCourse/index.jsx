@@ -46,7 +46,7 @@ export default function TopCourse({ topCourses, getAll }) {
             <div className={css.title}>置顶课程</div>
             {State.isTeacher ?
               <div className={css.operate}>
-                <Dropdown menu={{ items }} type='primary' trigger={['click']} placement="bottom">
+                <Dropdown menu={{ items }} type='primary' trigger={['click']} placement="bottom" overlayStyle={{ textAlign: "center" }}>
                   <Button type='primary'>+ 创建/加入课程</Button>
                 </Dropdown>
               </div> : <div className={css.operate}>
@@ -65,7 +65,7 @@ export default function TopCourse({ topCourses, getAll }) {
         State.isTeacher ?
           <div className={css.operate} style={{ width: '1150px', display: 'flex', justifyContent: 'space-between' }}>
             <div></div>
-            <Dropdown menu={{ items }} type='primary' trigger={['click']} placement="bottom">
+            <Dropdown menu={{ items }} type='primary' trigger={['click']} placement="bottom" overlayStyle={{ width: 100, textAlign: 'center' }}>
               <Button type='primary'>+ 创建/加入课程</Button>
             </Dropdown>
           </div> : <div className={css.operate} style={{ width: '1150px', display: 'flex', justifyContent: 'space-between' }}>

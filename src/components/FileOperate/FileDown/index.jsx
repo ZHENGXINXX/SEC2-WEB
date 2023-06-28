@@ -16,5 +16,4 @@ export const down = (data) => {
   );
   document.body.appendChild(link);
   link.click();
-  // URL.revokeObjectURL(fileUrl);
 };
