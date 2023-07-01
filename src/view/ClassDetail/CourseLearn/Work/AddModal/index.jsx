@@ -1,15 +1,15 @@
 import { DatePicker, Form, Input, InputNumber, Modal, Radio, Row, Upload, message } from 'antd';
-import React, { useEffect, useImperativeHandle, useState } from 'react';
+import React, { useImperativeHandle, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { addFalse, addTrue } from '../api';
-import { getCourse } from '../../../api';
+// import { getCourse } from '../../../api';
 import css from './index.module.less';
 
 const TextArea = Input.TextArea;
 function AddModal({ getWork }, ref) {
   const [form] = Form.useForm();
   const [sta, setSta] = useState(0);
-  const [number, setNum] = useState(0);
+  // const [number, setNum] = useState(0);
   const [visible, setVis] = useState({ open: false, courseId: 0 });
   useImperativeHandle(ref, () => ({ setVis }));
 
@@ -27,24 +27,24 @@ function AddModal({ getWork }, ref) {
     return false;
   };
 
-  const getJoinNumber = async (id) => {
-    const [error, resData] = await getCourse(id);
-    if (error) {
-      message.error(error.message);
-      return;
-    }
+  // const getJoinNumber = async (id) => {
+  //   const [error, resData] = await getCourse(id);
+  //   if (error) {
+  //     message.error(error.message);
+  //     return;
+  //   }
 
-    if (resData.code === 200) {
-      setNum(resData.data.joinNumber);
-    } else {
-      message.error(resData.message);
-    }
-  };
+  //   if (resData.code === 200) {
+  //     setNum(resData.data.joinNumber);
+  //   } else {
+  //     message.error(resData.message);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (visible.courseId)
-      getJoinNumber(visible.courseId);
-  }, [visible.courseId]);
+  // useEffect(() => {
+  //   if (visible.courseId)
+  //     getJoinNumber(visible.courseId);
+  // }, [visible.courseId]);
 
   const onFinish = () => {
     form.validateFields().then(async (values) => {
@@ -54,10 +54,9 @@ function AddModal({ getWork }, ref) {
       if (values.state === 1) {
         values.startTime = values.startTime.format('YYYY-MM-DD HH:mm:ss');
         values.endTime = values.endTime.format('YYYY-MM-DD HH:mm:ss');
-        if (number > 0)
-          res = await addTrue(values);
-        else
-          message.warning("该课程无学生，不能发布课程");
+        // if (number > 0)
+        res = await addTrue(values);
+        // else
       } else {
         res = await addFalse(values);
       }
