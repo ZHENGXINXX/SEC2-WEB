@@ -73,6 +73,7 @@ function EditModal({ updateList }, ref) {
       title="修改基础信息"
       width={650}
       open={visible.visible}
+      afterClose={()=>form.resetFields()}
       onOk={onFinish}
       onCancel={onCancel}>
       <Form preserve={false} form={form}>

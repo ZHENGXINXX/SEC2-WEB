@@ -60,9 +60,7 @@ function PasswordModal({updateList}, ref) {
       open={visible}
       onOk={onFinish}
       onCancel={onCancel}
-      destroyOnClose
-      maskClosable={false}
-      closable={false}>
+      afterClose={()=>form.resetFields()}>
       <Form form={form} preserve={false}>
         <Form.Item
           label='新密码'

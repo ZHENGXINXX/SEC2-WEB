@@ -5,11 +5,15 @@ import RoleModal from './RoleModal';
 import PasRef from './PasswordModal';
 import EditModal from './EditModal';
 import State from '@/tools/state';
+import EmailModal from './BandEmail';
+import PhoneModal from './PhoneModal';
 
 export default function Account({ messages, update }) {
   const roleRef = useRef();
   const pasRef = useRef();
   const eidtRef = useRef();
+  const emailRef = useRef();
+  const phoneRef = useRef();
   const id = State.userInfo.id;
 
   const changeRole = () => {
@@ -20,8 +24,16 @@ export default function Account({ messages, update }) {
     pasRef.current.setVis(true);
   };
 
+  const changeEmail = ()=>{
+    emailRef.current.setVis(true);
+  };
+
   const edit = () => {
     eidtRef.current.setVis({ visible: true, id });
+  };
+
+  const changePhone = () =>{
+    phoneRef.current.setVis(true);
   };
 
   return (
@@ -34,7 +46,7 @@ export default function Account({ messages, update }) {
         <div className={css.list}>
           <OneRow name='账号' value={messages.accountNumber}></OneRow>
           <OneRow name='所属角色' value={messages.role === 1 ? '老师' : "学生"} operate='去设置' event={changeRole}></OneRow>
-          <OneRow name='手机号' value={messages.phone} operate=''></OneRow>
+          <OneRow name='手机号' value={messages.phone} operate='手机号' event={changePhone}></OneRow>
           <OneRow name='密码' value='******' operate='修改密码' event={changePas}></OneRow>
         </div>
         <div className={css.title}>
@@ -60,7 +72,7 @@ export default function Account({ messages, update }) {
           <div className={css.operate}></div>
         </div>
         <div className={css.list}>
-          <OneRow name='邮箱绑定' value={messages.mailbox} />
+          <OneRow name='邮箱绑定' value={messages.mailbox} operate='邮箱' event={changeEmail}/>
           <OneRow name='微信绑定' value={messages.wechat} />
         </div>
       </>
@@ -68,6 +80,8 @@ export default function Account({ messages, update }) {
       <RoleModal ref={roleRef} updateList={update} />
       <PasRef ref={pasRef} updateList={update} />
       <EditModal ref={eidtRef} updateList={update} />
+      <EmailModal ref={emailRef} updateList={update} />
+      <PhoneModal ref={phoneRef} updateList={update}/>
     </div>
   );
 }
