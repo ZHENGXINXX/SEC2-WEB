@@ -19,7 +19,7 @@ function PhoneModal({updateList}, ref) {
         return;
       }
       if(resData.code === 200){
-        message.success("邮箱修改成功");
+        message.success("更改电话成功");
         updateList(id);
       }else{
         message.error(resData.message);

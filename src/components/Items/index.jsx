@@ -8,12 +8,12 @@ export const courseItems = [
   {
     label: (<span>备课区</span>),
     key: 'lessonPreparation',
-    path: '/lessonPreparation',
+    // path: '/lessonPreparation',
   },
   {
     label: (<span>虚拟教研室</span>),
     key: 'teachingResearch',
-    path: '/teachingResearch'
+    // path: '/teachingResearch'
   },
 ];
 
