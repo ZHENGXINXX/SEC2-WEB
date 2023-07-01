@@ -12,6 +12,7 @@ export default function Submit({ data = {} }) {
   const [detail, setDetail] = useState();
   const [file, setFile] = useState();
   const [state, setState] = useState(2);
+  const [submitStatus, setSubmit] = useState(2);
   const { taskId, id } = useLocation().state;
   const [form] = Form.useForm();
 
@@ -62,7 +63,9 @@ export default function Submit({ data = {} }) {
     }
 
     if (resData.code === 200) {
+      window.console.log(resData);
       setDetail(resData.data);
+      setSubmit(resData.data.correctionStatus);
       setFile(resData.data.submitHomeworkFiles);
       setState(resData.data.submitStatus);
     } else {
@@ -104,7 +107,7 @@ export default function Submit({ data = {} }) {
         <div className={css.button}>
           {state === 2 ?
             <button onClick={onSubmit}>确认提交</button> :
-            <button onClick={changeState}>更新提交</button>}
+            <button onClick={changeState} disabled={submitStatus === 1 ? true : false}>更新提交</button>}
         </div>
       </div>
       {state == 2 ?

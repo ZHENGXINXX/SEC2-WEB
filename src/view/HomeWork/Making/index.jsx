@@ -23,6 +23,7 @@ export default function Making({ data = {} }) {
     }
 
     if (resData.code === 200) {
+      window.console.log(resData.data);
       setData(resData.data);
     } else {
       message.error(resData.message);
